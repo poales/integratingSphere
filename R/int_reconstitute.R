@@ -5,6 +5,7 @@
 #'This function uses the written data from int_baseline_all to restore the analysis but
 #'without requiring that all the files be read in again.
 #'@name int_reconstitute
+#'@export
 require(tidyverse)
 require(magrittr)
 int_reconstitute <- function(location){

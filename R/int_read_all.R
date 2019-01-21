@@ -8,6 +8,7 @@
 #'@name int_read_all
 #'@param tpattern text check for transmission data
 #'@param rpattern text check for reflection data
+#'@export
 require(magrittr)
 require(tidyverse)
 int_read_all <- function(location,Averaging=1,tpattern= "Transmission", rpattern="Reflection"){

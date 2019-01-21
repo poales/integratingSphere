@@ -6,6 +6,7 @@
 #'data points
 #'@name int_read_one
 #'@param location location of an integrating sphere data file
+#'@export
 require(magrittr)
 require(tidyverse)
 int_read_one <- function(location,Averaging=1){

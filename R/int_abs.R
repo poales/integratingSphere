@@ -6,6 +6,7 @@
 #'@name int_abs
 #'@param trans_loc location of a file with transmittance data
 #'@param ref_loc location of a file with reflectance data
+#'@export
 
 require(magrittr)
 require(tidyverse)

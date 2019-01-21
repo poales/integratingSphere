@@ -8,6 +8,7 @@
 #'and also adds annotations dictating the average absorbance over the half-bandwidths of the blue and red LEDs.
 #'@name int_graph
 #' @param licordat show or hide the li-6800 LED spectra
+#' @export
 require(magrittr)
 require(tidyverse)
 int_graph <- function(dataset, licordat=TRUE){

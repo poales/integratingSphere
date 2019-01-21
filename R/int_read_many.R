@@ -5,6 +5,7 @@
 #' @param location the FOLDER path containing multiple scans.
 #' @param Averaging averages by X wavelengths.  Default 1.
 #' @param checkTxt if your folder contains non-data files, you have to apply a check text to make sure you only read the ones you want.
+#' @export
 require(tidyverse)
 require(magrittr)
 int_read_many <- function(location,Averaging=1,checkTxt =""){
