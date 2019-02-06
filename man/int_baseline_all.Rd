@@ -6,7 +6,7 @@
 \usage{
 int_baseline_all(locationBaseline, locationReflectance,
   locationTransmittance, Averaging = 1, writeLoc = NULL,
-  writePrefix = "")
+  writePrefix = "", licordat = T)
 }
 \arguments{
 \item{Averaging}{a variable that reflects how many wavelengths will be averaged together. Default: 1, so 1 point per wavelength}
@@ -14,6 +14,8 @@ int_baseline_all(locationBaseline, locationReflectance,
 \item{writeLoc}{If provided, will write out the collected data to the chosen directory. Provides csvs for reflectance, transmittance, baseline, and compiled.}
 
 \item{writePrefix}{Standard text added to the front of filenames for written out files.}
+
+\item{licordat}{Show or hide the Li-6800 LED spectra}
 }
 \description{
 A fully-featured function that accepts a series of folders to automatically work up.

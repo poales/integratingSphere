@@ -7,16 +7,14 @@
 #' @param Averaging a variable that reflects how many wavelengths will be averaged together. Default: 1, so 1 point per wavelength
 #' @param writeLoc If provided, will write out the collected data to the chosen directory. Provides csvs for reflectance, transmittance, baseline, and compiled.
 #' @param writePrefix Standard text added to the front of filenames for written out files.
+#' @param licordat Show or hide the Li-6800 LED spectra
 #' @export
 
-int_baseline_all <- function(locationBaseline, locationReflectance, locationTransmittance, Averaging=1, writeLoc = NULL, writePrefix = "") {
+int_baseline_all <- function(locationBaseline, locationReflectance, locationTransmittance, Averaging=1, writeLoc = NULL, writePrefix = "",licordat=T) {
   #read data
-  baseline_data <- int_read_many(locationBaseline,Averaging = Averaging,checkTxt = "Reflection")
-  colnames(baseline_data) <- c("Wavelength","Reflectance")
-  reflectance_data <- int_read_many(location = locationReflectance, Averaging = Averaging,checkTxt = "Reflection")
-  colnames(reflectance_data) <- c("Wavelength","Reflectance")
-  transmittance_data <- int_read_many(location = locationTransmittance, Averaging=Averaging,checkTxt = "Transmission")
-  colnames(transmittance_data) <- c("Wavelength","Transmittance")
+  baseline_data <- int_read_many(locationBaseline,Averaging = Averaging,checkTxt = "Reflection",label="Reflectance")
+  reflectance_data <- int_read_many(location = locationReflectance, Averaging = Averaging,checkTxt = "Reflection",label="Reflectance")
+  transmittance_data <- int_read_many(location = locationTransmittance, Averaging=Averaging,checkTxt = "Transmission",label="Transmittance")
 
   #Calculate baseline adjustment
   #calculates the light that is transmitted through the leaf, is reflected by the bottom sphere, gets transmitted back
@@ -35,7 +33,7 @@ int_baseline_all <- function(locationBaseline, locationReflectance, locationTran
   plant_data_adj <- tibble::add_column(plant_data_adj,Absorbance=100-plant_data_adj$RefAdj-plant_data_adj$Transmittance)
 
   #generate a graph
-  adj_data_plot <- int_graph(dplyr::select(plant_data_adj,"Wavelength","Transmittance","RefAdj","Absorbance"))
+  adj_data_plot <- int_graph(dplyr::select(plant_data_adj,"Wavelength","Transmittance","RefAdj","Absorbance"),licordat=licordat)
 
   #optionally write data
   if(!is.null(writeLoc)){

@@ -6,10 +6,7 @@
 #'@name int_abs
 #'@param trans_loc location of a file with transmittance data
 #'@param ref_loc location of a file with reflectance data
-#'@export
 
-require(magrittr)
-require(tidyverse)
 int_abs <- function(trans_loc,ref_loc, averaging=1){
   transmission <- read_delim(trans_loc,delim="\t",col_names = c("Wavelength","Transmission"),col_types = "dd") %>%
     filter(Wavelength>0) %>%

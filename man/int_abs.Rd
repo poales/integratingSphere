@@ -3,6 +3,9 @@
 \name{int_abs}
 \alias{int_abs}
 \title{Create an absorbance measurement from one file of transmittance and one file of reflectance}
+\usage{
+int_abs(trans_loc, ref_loc, averaging = 1)
+}
 \arguments{
 \item{trans_loc}{location of a file with transmittance data}
 

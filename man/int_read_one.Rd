@@ -8,6 +8,8 @@ int_read_one(location, Averaging = 1, label = "X")
 }
 \arguments{
 \item{location}{location of an integrating sphere data file}
+
+\item{label}{The value you're reading in - ie if you're reading in a Reflectance file, set this to "Reflectance" to return a dataframe with colnames(df) c("Wavelength", "Reflectance")}
 }
 \description{
 simple function that interprets the raw data file

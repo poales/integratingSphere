@@ -7,6 +7,8 @@
 int_graph(dataset, licordat = TRUE)
 }
 \arguments{
+\item{dataset}{A dataset with Wavelength, Transmittance, Reflectance, and Absorbance data}
+
 \item{licordat}{show or hide the li-6800 LED spectra}
 }
 \description{
@@ -14,6 +16,7 @@ A very narrow function because it is written specially for my own computer.
 accepts a compiled dataset with specifically 4 columns, in order.
 designed to be called from other functions in this file...
 returns a ggplot object.
+Requires reshape2 library.
 displays a graph with the transmittance reflectance, absorbance and the licor LED spectra
 and also adds annotations dictating the average absorbance over the half-bandwidths of the blue and red LEDs.
 }

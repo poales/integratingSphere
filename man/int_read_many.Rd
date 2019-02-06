@@ -4,7 +4,7 @@
 \alias{int_read_many}
 \title{Import and read all files of a certain type in a chosen folder}
 \usage{
-int_read_many(location, Averaging = 1, checkTxt = "")
+int_read_many(location, Averaging = 1, checkTxt = "", label = "Mean")
 }
 \arguments{
 \item{location}{the FOLDER path containing multiple scans.}
@@ -12,6 +12,8 @@ int_read_many(location, Averaging = 1, checkTxt = "")
 \item{Averaging}{averages by X wavelengths.  Default 1.}
 
 \item{checkTxt}{if your folder contains non-data files, you have to apply a check text to make sure you only read the ones you want.}
+
+\item{label}{The name of the "business" column, which accompanies your Wavelength.}
 }
 \description{
 This function accepts a folder location, reads in all files in that directory, and averages them.
