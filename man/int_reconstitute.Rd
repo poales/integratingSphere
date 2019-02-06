@@ -3,6 +3,9 @@
 \name{int_reconstitute}
 \alias{int_reconstitute}
 \title{Restore data written by int_baseline_all}
+\usage{
+int_reconstitute(location)
+}
 \description{
 This function uses the written data from int_baseline_all to restore the analysis but
 without requiring that all the files be read in again.

@@ -3,6 +3,9 @@
 \name{int_graph}
 \alias{int_graph}
 \title{Turn a integrating sphere dataset into a nice graph with licor dataset}
+\usage{
+int_graph(dataset, licordat = TRUE)
+}
 \arguments{
 \item{licordat}{show or hide the li-6800 LED spectra}
 }

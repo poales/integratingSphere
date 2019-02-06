@@ -3,6 +3,9 @@
 \name{int_read_one}
 \alias{int_read_one}
 \title{Reads one file and formats it for use with other functions}
+\usage{
+int_read_one(location, Averaging = 1, label = "X")
+}
 \arguments{
 \item{location}{location of an integrating sphere data file}
 }

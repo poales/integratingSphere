@@ -7,11 +7,11 @@
 #'@name int_read_one
 #'@param location location of an integrating sphere data file
 #'@export
-require(magrittr)
-require(tidyverse)
-int_read_one <- function(location,Averaging=1){
-  int_data <- suppressWarnings(read_delim(location,delim="\t",col_names=c("Wavelength","X"),col_types="dd"))
-  int_data <- filter(int_data,Wavelength>0) %>%
-    aggregate(X~Wavelength%/% Averaging,.,mean) %>%
-    set_colnames(c("Wavelength","X"))
+
+int_read_one <- function(location,Averaging=1,label = "X"){
+  int_data <- suppressWarnings(readr::read_delim(location,delim="\t",col_names=c("Wavelength",label),col_types="dd"))
+  int_data <- dplyr::filter(int_data,Wavelength>0)
+  int_data <- aggregate(X~Wavelength%/% Averaging,int_data,mean)
+  colnames(int_data) <- c("Wavelength", label)
+  return(int_data)
 }

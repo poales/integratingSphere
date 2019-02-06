@@ -9,16 +9,14 @@
 #'@name int_graph
 #' @param licordat show or hide the li-6800 LED spectra
 #' @export
-require(magrittr)
-require(tidyverse)
+
+
 int_graph <- function(dataset, licordat=TRUE){
-  require(reshape2)
   colnames(dataset) <- c("Wavelength","Transmittance","Reflectance","Absorbance")
-  plotdata <- melt(dataset,id.vars = "Wavelength")
+  plotdata <- reshape2::melt(dataset,id.vars = "Wavelength")
 
   if(licordat){
     licordata <- integratingSphere::licorSpectra
-    #licordata <- read_csv(file = "C:/Users/owner/Dropbox/Alan/2018_03_27 Greenhouse vs cart benthy/licorSpectra.csv")
   }
 
   #absorbances
@@ -27,34 +25,24 @@ int_graph <- function(dataset, licordat=TRUE){
   #red
   red_abs <- mean(dataset[dataset$Wavelength<=637 & dataset$Wavelength>=622,]$Absorbance)
 
-  ann_table <- data.frame(Wavelength = 480,value=50,text = paste0("Avg ",round(blue_abs,2)),stringsAsFactors = F) %>%
-    rbind(c(630,50,paste0("Avg ",round(red_abs,2))))%>%
-    mutate_at(.vars = c("Wavelength","value"), as.numeric)
+  ann_table <- data.frame(Wavelength = 480,value=50,text = paste0("Avg ",round(blue_abs,2)),stringsAsFactors = F)
+  ann_table <- rbind(ann_table, c(630,50,paste0("Avg ",round(red_abs,2))))
+  ann_table <- dplyr::mutate_at(ann_table,.vars = c("Wavelength","value"), as.numeric)
+  myplot <- ggplot2::ggplot(plotdata,mapping=ggplot2::aes(x=Wavelength,y=value))+
+    ggplot2::scale_color_manual(values=c("darkviolet","forestgreen","cornflowerblue"))+
+    ggplot2::geom_point(mapping=ggplot2::aes(col=variable))+
+    ggplot2::ylim(0,100)+
+    ggplot2::xlim(350,800)+
+    ggplot2::theme_minimal()+
+    ggplot2::theme(panel.grid.major = ggplot2::element_line(color = "black"),
+                   panel.grid.minor = ggplot2::element_blank())+
+    ggplot2::ylab("Percent")
 
   if(licordat){
-    myplot <- ggplot(plotdata,mapping=aes(x=Wavelength,y=value))+
-      scale_color_manual(values=c("darkviolet","forestgreen","cornflowerblue"))+
-      geom_point(mapping=aes(col=variable))+
-      ylim(0,100)+
-      xlim(350,800)+
-      geom_point(licordata,mapping=aes(x=Wavelength,y=Intensity/560),col="red",size=.4)+
-      geom_label(data=ann_table,mapping = aes(x=Wavelength,y=value,label=text))+
-      theme_minimal()+
-      theme(panel.grid.major = element_line(color = "black"),
-            panel.grid.minor = element_blank())+
-      ylab("Percent")
-  } else {
-    myplot <- ggplot(plotdata,mapping=aes(x=Wavelength,y=value))+
-      scale_color_manual(values=c("darkviolet","forestgreen","cornflowerblue"))+
-      geom_point(mapping=aes(col=variable))+
-      ylim(0,100)+
-      xlim(350,800)+
-      theme_minimal()+
-      theme(panel.grid.major = element_line(color = "black"),
-            panel.grid.minor = element_blank())+
-      ylab("Percent")
+    myplot <- myplot +
+      ggplot2::geom_point(licordata,mapping=ggplot2::aes(x=Wavelength,y=Intensity/560),col="red",size=.4)+
+      ggplot2::geom_label(data=ann_table,mapping = ggplot2::aes(x=Wavelength,y=value,label=text))
   }
-
 
   return(myplot)
 }

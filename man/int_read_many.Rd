@@ -3,6 +3,9 @@
 \name{int_read_many}
 \alias{int_read_many}
 \title{Import and read all files of a certain type in a chosen folder}
+\usage{
+int_read_many(location, Averaging = 1, checkTxt = "")
+}
 \arguments{
 \item{location}{the FOLDER path containing multiple scans.}
 
