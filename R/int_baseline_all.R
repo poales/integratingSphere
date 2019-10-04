@@ -30,10 +30,10 @@ int_baseline_all <- function(locationBaseline, locationReflectance, locationTran
   suppressWarnings(plant_data_adj <- merge(transmittance_data,reflectance_data,by="Wavelength"))
   plant_data_adj <- tibble::add_column(plant_data_adj,TTR=adjustment_matrix$TTR)
   plant_data_adj <- tibble::add_column(plant_data_adj,RefAdj=plant_data_adj$Reflectance-(plant_data_adj$TTR)*100)
-  plant_data_adj <- tibble::add_column(plant_data_adj,Absorbance=100-plant_data_adj$RefAdj-plant_data_adj$Transmittance)
+  plant_data_adj <- tibble::add_column(plant_data_adj,Absorptance=100-plant_data_adj$RefAdj-plant_data_adj$Transmittance)
 
   #generate a graph
-  adj_data_plot <- int_graph(dplyr::select(plant_data_adj,"Wavelength","Transmittance","RefAdj","Absorbance"),licordat=licordat)
+  adj_data_plot <- int_graph(dplyr::select(plant_data_adj,"Wavelength","Transmittance","RefAdj","Absorptance"),licordat=licordat)
 
   #optionally write data
   if(!is.null(writeLoc)){

@@ -14,7 +14,7 @@
 
 
 int_graph <- function(dataset, licordat=TRUE){
-  colnames(dataset) <- c("Wavelength","Transmittance","Reflectance","Absorbance")
+  colnames(dataset) <- c("Wavelength","Transmittance","Reflectance","Absorptance")
   plotdata <- reshape2::melt(dataset,id.vars = "Wavelength")
 
   if(licordat){
@@ -22,10 +22,10 @@ int_graph <- function(dataset, licordat=TRUE){
   }
 
   #absorbances
-  blue_abs <- mean(dataset[dataset$Wavelength<=494 & dataset$Wavelength>=471,]$Absorbance)
+  blue_abs <- mean(dataset[dataset$Wavelength<=494 & dataset$Wavelength>=471,]$Absorptance)
 
   #red
-  red_abs <- mean(dataset[dataset$Wavelength<=637 & dataset$Wavelength>=622,]$Absorbance)
+  red_abs <- mean(dataset[dataset$Wavelength<=637 & dataset$Wavelength>=622,]$Absorptance)
 
   ann_table <- data.frame(Wavelength = 480,value=50,text = paste0("Avg ",round(blue_abs,2)),stringsAsFactors = F)
   ann_table <- rbind(ann_table, c(630,50,paste0("Avg ",round(red_abs,2))))
