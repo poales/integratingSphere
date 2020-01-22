@@ -31,11 +31,11 @@ int_graph <- function(dataset, licordat=TRUE){
   ann_table <- rbind(ann_table, c(630,75,paste0("Red Avg ",round(red_abs,2))))
   ann_table <- dplyr::mutate_at(ann_table,.vars = c("Wavelength","value"), as.numeric)
   myplot <- ggplot2::ggplot(plotdata,mapping=ggplot2::aes(x=Wavelength,y=value))+
-    ggplot2::scale_color_manual(values=c("darkviolet","forestgreen","cornflowerblue"))+
+    ggplot2::scale_color_viridis_d()+
     ggplot2::geom_point(mapping=ggplot2::aes(col=variable))+
     ggplot2::ylim(0,100)+
     ggplot2::xlim(350,800)+
-    ggplot2::theme_minimal()+
+    ggplot2::theme_classic()+
     ggplot2::ylab("Percent")
 
   if(licordat){
