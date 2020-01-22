@@ -27,8 +27,8 @@ int_graph <- function(dataset, licordat=TRUE){
   #red
   red_abs <- mean(dataset[dataset$Wavelength<=637 & dataset$Wavelength>=622,]$Absorptance)
 
-  ann_table <- data.frame(Wavelength = 480,value=50,text = paste0("Avg ",round(blue_abs,2)),stringsAsFactors = F)
-  ann_table <- rbind(ann_table, c(630,50,paste0("Avg ",round(red_abs,2))))
+  ann_table <- data.frame(Wavelength = 480,value=75,text = paste0("Blue Avg ",round(blue_abs,2)),stringsAsFactors = F)
+  ann_table <- rbind(ann_table, c(630,75,paste0("Red Avg ",round(red_abs,2))))
   ann_table <- dplyr::mutate_at(ann_table,.vars = c("Wavelength","value"), as.numeric)
   myplot <- ggplot2::ggplot(plotdata,mapping=ggplot2::aes(x=Wavelength,y=value))+
     ggplot2::scale_color_manual(values=c("darkviolet","forestgreen","cornflowerblue"))+
@@ -36,8 +36,6 @@ int_graph <- function(dataset, licordat=TRUE){
     ggplot2::ylim(0,100)+
     ggplot2::xlim(350,800)+
     ggplot2::theme_minimal()+
-    ggplot2::theme(panel.grid.major = ggplot2::element_line(color = "black"),
-                   panel.grid.minor = ggplot2::element_blank())+
     ggplot2::ylab("Percent")
 
   if(licordat){
