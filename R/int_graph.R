@@ -13,7 +13,7 @@
 #' @export
 
 
-int_graph <- function(dataset, licordat=TRUE){
+int_graph <- function(dataset, licordat=TRUE,sharkeySpec=F){
   colnames(dataset) <- c("Wavelength","Transmittance","Reflectance","Absorptance")
   plotdata <- reshape2::melt(dataset,id.vars = "Wavelength")
 
@@ -22,10 +22,22 @@ int_graph <- function(dataset, licordat=TRUE){
   }
 
   #absorbances
-  blue_abs <- mean(dataset[dataset$Wavelength<=494 & dataset$Wavelength>=471,]$Absorptance)
-
-  #red
-  red_abs <- mean(dataset[dataset$Wavelength<=637 & dataset$Wavelength>=622,]$Absorptance)
+  if(sharkeySpec){
+    #blue
+    blue_abs <- mean(dataset[dataset$Wavelength<=455 & dataset$Wavelength>=479,]$Absorptance)
+    #red
+    red_abs <- mean(dataset[dataset$Wavelength<=649 & dataset$Wavelength>=661,]$Absorptance)
+    ann_table <- data.frame(Wavelength = 450,value=50,text = paste0("Blue Avg ",round(blue_abs,2)),stringsAsFactors = F)
+    ann_table <- rbind(ann_table, c(650,50,paste0("Red Avg ",round(red_abs,2))))
+  }else{
+    #blue
+    blue_abs <- mean(dataset[dataset$Wavelength<=494 & dataset$Wavelength>=471,]$Absorptance)
+    #red
+    red_abs <- mean(dataset[dataset$Wavelength<=637 & dataset$Wavelength>=622,]$Absorptance)
+    ann_table <- data.frame(Wavelength = 480,value=75,text = paste0("Blue Avg ",round(blue_abs,2)),stringsAsFactors = F)
+    ann_table <- rbind(ann_table, c(630,75,paste0("Red Avg ",round(red_abs,2))))
+  }
+  
 
   ann_table <- data.frame(Wavelength = 480,value=75,text = paste0("Blue Avg ",round(blue_abs,2)),stringsAsFactors = F)
   ann_table <- rbind(ann_table, c(630,75,paste0("Red Avg ",round(red_abs,2))))
