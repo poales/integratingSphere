@@ -10,7 +10,7 @@
 #' @param licordat Show or hide the Li-6800 LED spectra
 #' @export
 
-int_baseline_all <- function(locationBaseline, locationReflectance, locationTransmittance, Averaging=1, writeLoc = NULL, writePrefix = "",licordat=T,sharkeySpec=F) {
+int_baseline_all <- function(locationBaseline, locationReflectance, locationTransmittance, Averaging=1, writeLoc = NULL, writePrefix = "",licordat=T,useSharkeySpec=F) {
   #read data
   baseline_data <- int_read_many(locationBaseline,Averaging = Averaging,checkTxt = "Reflection",label="Reflectance")
   reflectance_data <- int_read_many(location = locationReflectance, Averaging = Averaging,checkTxt = "Reflection",label="Reflectance")
@@ -33,7 +33,7 @@ int_baseline_all <- function(locationBaseline, locationReflectance, locationTran
   plant_data_adj <- tibble::add_column(plant_data_adj,Absorptance=100-plant_data_adj$RefAdj-plant_data_adj$Transmittance)
 
   #generate a graph
-  adj_data_plot <- int_graph(dplyr::select(plant_data_adj,"Wavelength","Transmittance","RefAdj","Absorptance"),licordat=licordat,sharkeySpec=sharkeySpec)
+  adj_data_plot <- int_graph(dplyr::select(plant_data_adj,"Wavelength","Transmittance","RefAdj","Absorptance"),licordat=licordat,sharkeySpec=useSharkeySpec)
 
   #optionally write data
   if(!is.null(writeLoc)){

@@ -4,8 +4,12 @@
 \alias{int_read_all}
 \title{Read all data in the folder, parse it based on type, and average them}
 \usage{
-int_read_all(location, Averaging = 1, tpattern = "Transmission",
-  rpattern = "Reflection")
+int_read_all(
+  location,
+  Averaging = 1,
+  tpattern = "Transmission",
+  rpattern = "Reflection"
+)
 }
 \arguments{
 \item{tpattern}{text check for transmission data}

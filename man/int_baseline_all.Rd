@@ -4,9 +4,16 @@
 \alias{int_baseline_all}
 \title{Fully work up a complete data set of integrating sphere data}
 \usage{
-int_baseline_all(locationBaseline, locationReflectance,
-  locationTransmittance, Averaging = 1, writeLoc = NULL,
-  writePrefix = "", licordat = T)
+int_baseline_all(
+  locationBaseline,
+  locationReflectance,
+  locationTransmittance,
+  Averaging = 1,
+  writeLoc = NULL,
+  writePrefix = "",
+  licordat = T,
+  useSharkeySpec = F
+)
 }
 \arguments{
 \item{Averaging}{a variable that reflects how many wavelengths will be averaged together. Default: 1, so 1 point per wavelength}

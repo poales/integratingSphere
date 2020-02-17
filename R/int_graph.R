@@ -20,13 +20,16 @@ int_graph <- function(dataset, licordat=TRUE,sharkeySpec=F){
   if(licordat){
     licordata <- integratingSphere::licorSpectra
   }
+  if(sharkeySpec){
+    ss_spec <- integratingSphere::sharkeySpectra
+  }
 
   #absorbances
   if(sharkeySpec){
     #blue
-    blue_abs <- mean(dataset[dataset$Wavelength<=455 & dataset$Wavelength>=479,]$Absorptance)
+    blue_abs <- mean(dataset[dataset$Wavelength<=479 & dataset$Wavelength>=455,]$Absorptance)
     #red
-    red_abs <- mean(dataset[dataset$Wavelength<=649 & dataset$Wavelength>=661,]$Absorptance)
+    red_abs <- mean(dataset[dataset$Wavelength<=661 & dataset$Wavelength>=649,]$Absorptance)
     ann_table <- data.frame(Wavelength = 450,value=50,text = paste0("Blue Avg ",round(blue_abs,2)),stringsAsFactors = F)
     ann_table <- rbind(ann_table, c(650,50,paste0("Red Avg ",round(red_abs,2))))
   }else{
@@ -38,9 +41,6 @@ int_graph <- function(dataset, licordat=TRUE,sharkeySpec=F){
     ann_table <- rbind(ann_table, c(630,75,paste0("Red Avg ",round(red_abs,2))))
   }
   
-
-  ann_table <- data.frame(Wavelength = 480,value=75,text = paste0("Blue Avg ",round(blue_abs,2)),stringsAsFactors = F)
-  ann_table <- rbind(ann_table, c(630,75,paste0("Red Avg ",round(red_abs,2))))
   ann_table <- dplyr::mutate_at(ann_table,.vars = c("Wavelength","value"), as.numeric)
   myplot <- ggplot2::ggplot(plotdata,mapping=ggplot2::aes(x=Wavelength,y=value))+
     ggplot2::scale_color_viridis_d()+
@@ -53,6 +53,11 @@ int_graph <- function(dataset, licordat=TRUE,sharkeySpec=F){
   if(licordat){
     myplot <- myplot +
       ggplot2::geom_point(licordata,mapping=ggplot2::aes(x=Wavelength,y=Intensity/560),col="red",size=.4)+
+      ggplot2::geom_label(data=ann_table,mapping = ggplot2::aes(x=Wavelength,y=value,label=text))
+  }
+  if(sharkeySpec){
+    myplot <- myplot +
+      ggplot2::geom_point(licordata,mapping=ggplot2::aes(x=Wavelength,y=Intensity/300),col="red",size=.4)+
       ggplot2::geom_label(data=ann_table,mapping = ggplot2::aes(x=Wavelength,y=value,label=text))
   }
 
