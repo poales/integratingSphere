@@ -57,7 +57,7 @@ int_graph <- function(dataset, licordat=TRUE,sharkeySpec=F){
   }
   if(sharkeySpec){
     myplot <- myplot +
-      ggplot2::geom_point(licordata,mapping=ggplot2::aes(x=Wavelength,y=Intensity/300),col="red",size=.4)+
+      ggplot2::geom_point(sharkeySpectra,mapping=ggplot2::aes(x=Wavelength,y=Intensity/300),col="red",size=.4)+
       ggplot2::geom_label(data=ann_table,mapping = ggplot2::aes(x=Wavelength,y=value,label=text))
   }
 
