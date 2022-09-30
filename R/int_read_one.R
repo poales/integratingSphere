@@ -10,9 +10,22 @@
 #'@export
 
 int_read_one <- function(location,Averaging=1,label = "X"){
-  int_data <- suppressWarnings(readr::read_delim(location,delim="\t",col_names=c("Wavelength","X"),col_types="dd"))
+  int_data <- readr::read_lines(location)
+  flag <- T
+  counter <- 0
+  while(flag){
+    if(!grepl("\t",int_data[counter+1]))
+      counter <- counter+1
+    else
+      flag <- F
+  }
+  int_data <- tibble::tibble(int_data[-(1:counter)])
+  int_data <- tidyr::separate(int_data,col = 1,sep="\t",into=c("Wavelength","X"),convert = T)
+
   int_data <- dplyr::filter(int_data,Wavelength>0)
+
   int_data <- aggregate(X~Wavelength%/% Averaging,int_data,mean)
+
   colnames(int_data) <- c("Wavelength", label)
   return(int_data)
 }

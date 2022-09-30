@@ -15,7 +15,6 @@ int_baseline_all <- function(locationBaseline, locationReflectance, locationTran
   baseline_data <- int_read_many(locationBaseline,Averaging = Averaging,checkTxt = "Reflection",label="Reflectance")
   reflectance_data <- int_read_many(location = locationReflectance, Averaging = Averaging,checkTxt = "Reflection",label="Reflectance")
   transmittance_data <- int_read_many(location = locationTransmittance, Averaging=Averaging,checkTxt = "Transmission",label="Transmittance")
-
   #Calculate baseline adjustment
   #calculates the light that is transmitted through the leaf, is reflected by the bottom sphere, gets transmitted back
   #through the plant, and then gets detected by the top sphere.
